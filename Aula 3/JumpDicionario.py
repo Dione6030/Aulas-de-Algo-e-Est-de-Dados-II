@@ -1,66 +1,38 @@
-import csv
 import math
 import pandas as pd
 
-def jump_search(lista, num):
+def jump_search(lista, num, inicio, fim):
     
-    passos = math.sqrt(lista)
-    numeros_proximos = []
+    passos = math.sqrt(len(lista))
     
-    anterior = 0
-    
-    df = pd.read_csv("datasets/numeros_1M_ordenado.csv")
-    dado_csv = df["numero"].to_list()
-    
-    while dado_csv[int(min(passos, lista))] < num:
-        anterior = passos
-        passos += math.sqrt(lista)
-        
-        if anterior >= lista:
+    while lista[int(min(passos, fim)-1)]:
+        inicio = passos
+        passos += math.sqrt(len(lista))
+        if inicio >= fim:
             return -1
-        
-    metade_do_caminho = anterior
-    fim_da_metade_do_caminho = anterior + passos
-    distancia = fim_da_metade_do_caminho - metade_do_caminho
-    anterior = 0
-    passos = math.sqrt(distancia)
     
-    while dado_csv[int(min(metade_do_caminho, fim_da_metade_do_caminho))] < num:
-        anterior = passos
-        passos += math.sqrt(distancia)
-        if anterior >= distancia:
-            return - 1
-    
-    metade_do_caminho = anterior
-    fim_da_metade_do_caminho = anterior + passos
-    distancia = fim_da_metade_do_caminho - metade_do_caminho
-    anterior = 0
-    passos = math.sqrt(distancia)
-    
-    while dado_csv[int(min(metade_do_caminho, fim_da_metade_do_caminho))] < num:
-        anterior = passos
-        passos += math.sqrt(distancia)
-        if anterior >= distancia:
-            return - 1
-    
-    metade_do_caminho = anterior
-    fim_da_metade_do_caminho = anterior + passos
-    
-    while dado_csv[int(anterior)] <= fim_da_metade_do_caminho:
-        numeros_proximos.append(anterior)
-    
-    return numeros_proximos
+    return inicio, fim
 
-def conta_linhas_csv():
-    df = pd.read_csv("datasets/numeros_1M_ordenado.csv")
-    leitor = df["numero"].to_list()
-        
-    total_linhas = len(list(leitor))
-    return total_linhas
+def binary_search(lista, num, inicio, fim):
+    meio = inicio + (fim - inicio) // 2
+    
+    if lista[meio] == num:
+        return lista[]
+
+def pesquisa(lista, num):
+    inicio, fim = 0, len(lista)
+    
+    while inicio <= num:
+        jump_search(lista, num, inicio, fim)
+    
+    while inicio <= num:
+        binary_search(lista,num, inicio, fim)
+    
 
 def main():
-    total_linhas = conta_linhas_csv()
+    df = pd.read_csv("/Aula 3/datasets/numeros_1M_ordenado.csv")
+    leitor = df["numero"].to_list
     
-    print(jump_search(total_linhas, 5644))
+    print(pesquisa(leitor, 5644))
 
 main()
