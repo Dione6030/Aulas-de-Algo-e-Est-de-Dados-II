@@ -9,7 +9,7 @@ def jump_search(lista, num, inicio):
     while lista[int(min(inicio, fim))] <= num:
         inicio += passos
         fim = inicio + passos
-        if inicio >= fim:
+        if inicio >= len(lista):
             return -1, -1
     
     fim = inicio
@@ -23,6 +23,7 @@ def binary_search(lista, num, inicio, fim):
     meio = inicio + (fim - inicio) // 2
     
     if lista[meio] == num:
+        print(f"O número {num} foi encontrado na posição {meio}")
         return retornaAproximado(lista, meio)
     
     if lista[meio] < num:
