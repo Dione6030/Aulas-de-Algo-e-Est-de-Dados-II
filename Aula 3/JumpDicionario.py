@@ -1,37 +1,56 @@
 import math
 import pandas as pd
 
-def jump_search(lista, num, inicio, fim):
+def jump_search(lista, num, inicio):
     
-    passos = math.sqrt(len(lista))
+    passos = int(math.sqrt(len(lista)))
+    fim = inicio + passos
     
-    while lista[int(min(passos, fim)-1)]:
-        inicio = passos
-        passos += math.sqrt(len(lista))
+    while lista[int(min(inicio, fim))] <= num:
+        inicio += passos
+        fim = inicio + passos
         if inicio >= fim:
-            return -1
+            return -1, -1
     
+    fim = inicio
+    inicio -= passos
     return inicio, fim
 
 def binary_search(lista, num, inicio, fim):
+    if inicio > fim:
+        return print(f"O número {num} não foi encontrado")
+    
     meio = inicio + (fim - inicio) // 2
     
     if lista[meio] == num:
-        return lista[]
+        return retornaAproximado(lista, meio)
+    
+    if lista[meio] < num:
+        return binary_search(lista, num, meio + 1, fim)
+    
+    if lista[meio] > num:
+        return binary_search(lista, num, inicio, meio -1)
+
+def retornaAproximado(lista, indice):
+    inicio = max(0, indice -2)
+    fim = min(len(lista), indice +3)
+    
+    return lista[inicio:fim]
 
 def pesquisa(lista, num):
     inicio, fim = 0, len(lista)
     
-    while inicio <= num:
-        jump_search(lista, num, inicio, fim)
+    while fim == len(lista):
+        inicio, fim = jump_search(lista, num, inicio)
     
-    while inicio <= num:
-        binary_search(lista,num, inicio, fim)
+    print(inicio, fim)
+    
+    return binary_search(lista,num, inicio, fim)
     
 
 def main():
-    df = pd.read_csv("/Aula 3/datasets/numeros_1M_ordenado.csv")
-    leitor = df["numero"].to_list
+    df = pd.read_csv("datasets/numeros_1M_ordenado.csv")
+    leitor = df["numero"].to_list()
     
     print(pesquisa(leitor, 5644))
 
