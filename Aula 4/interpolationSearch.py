@@ -58,3 +58,8 @@ indice = pesquisaPorInterpolacao(valores, 0, quantidade -1 , x)
 
 # b) Ele funciona em dados que estão ordenados e, ele precisa que os dados esteja distribuidos de um jeito uniforme, com um padrão de salto bem definido para o indice, exemplos: dicionário (pois as primeiras letras, se estiverem em ordem alfabetica, podem ser mapeados por números de 1 a 26), logs e cronogramas (que são gerados em intervalos regulares) e códigos de cores em hexadecimal.
 
+# c) Isso acontece quando os dados seguem um padrão exponencial (se multiplicando, perdendo o padrão uniforme eventualmente) ou quando há espaços vazis entre os valores dentro da lista.
+
+#=======================/COMPARANDO COM PESQUISA BINARIA\=======================#
+
+# Fazendo uma pequena simulação, para encontra o 30, ele precisaria ir até o indice do meio (valor=45 indice=8 -1), depois procurar na metade da metade (valor=25 indice=4 -1), até chegar ao 30 no indice 5 -1.
