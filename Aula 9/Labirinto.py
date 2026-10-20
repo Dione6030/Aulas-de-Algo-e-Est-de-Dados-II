@@ -1,3 +1,5 @@
+import time
+
 labirinto = [
     ".########.",
     "........#.",
@@ -53,6 +55,7 @@ print("Passos até a saída:",len(caminho))
 desenhar(labirinto, caminho)
 print("\n")
 
+dfs_tempo_inicio = time.perf_counter()
 caminho_dfs = []
 def dfs(grafo, inicio, saida, visitados): 
     visitados.add(inicio)
@@ -71,10 +74,15 @@ def dfs(grafo, inicio, saida, visitados):
 
 print("Busca por Profundidade:")
 dfs(grafo, (2,0), (7,4), set())
+dfs_tempo_fim = time.perf_counter()
+dfs_tempo_total = dfs_tempo_fim - dfs_tempo_inicio
+dfs_em_milissegundos = dfs_tempo_total * 1000
+print(f"Tempo de execução: {dfs_em_milissegundos:.2f} ms")
 print("Passos até a saída:",len(caminho_dfs))
 desenhar(labirinto, caminho_dfs)
 print("\n")
 
+bfs_tempo_inicio = time.perf_counter()
 caminho_bfs = []
 from collections import deque
 def bfs(grafo, inicio, saida): 
@@ -93,12 +101,17 @@ def bfs(grafo, inicio, saida):
 
 print("Busca por Largura:")
 bfs(grafo, (2,0), (7,4))
+bfs_tempo_fim = time.perf_counter()
+bfs_tempo_total = bfs_tempo_fim - bfs_tempo_inicio
+bfs_em_milissegundos = bfs_tempo_total * 1000
+print(f"Tempo de execução: {bfs_em_milissegundos:.2f} ms")
 print("Passos até a saída:",len(caminho_bfs))
 desenhar(labirinto, caminho_bfs)
 print("\n")
 
 import heapq
 
+gulosa_tempo_inicio = time.perf_counter()
 caminho_da_gulosa = []
 def h(v, saida): 
     return abs(v[0] - saida[0]) + abs(v[1] - saida[1])
@@ -120,8 +133,10 @@ def gulosa(grafo, inicio, saida):
 
 print("Busca Gulosa:")
 gulosa(grafo, (2,0), (7,4))
+gulosa_tempo_fim = time.perf_counter()
+gulosa_tempo_total = gulosa_tempo_fim - gulosa_tempo_inicio
+gulosa_em_milissegundos = gulosa_tempo_total * 1000
+print(f"Tempo de execução: {gulosa_em_milissegundos:.2f} ms")
 print("Passos até a saída:",len(caminho_da_gulosa))
 desenhar(labirinto, caminho_da_gulosa)
 print("\n")
-
-# cada uma devolve (caminho, casas_visitadas)
